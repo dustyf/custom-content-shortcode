@@ -112,7 +112,7 @@ class CCS_BP_Member {
 			}
 		}
 
-		$users = get_users( $args );
+		$users = bp_core_get_users( $args );
 
 
 		/*========================================================================
@@ -122,7 +122,7 @@ class CCS_BP_Member {
 		 *=======================================================================*/
 
 		// Users Loop
-		foreach ( $users as $user ) {
+		foreach ( $users['users'] as $user ) {
 			self::$state['current_user_object'] = $user;
 			$outputs[] = do_shortcode( $content );
 		}
