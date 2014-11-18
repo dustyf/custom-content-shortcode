@@ -43,14 +43,6 @@ class CCS_BP_Member {
 
 		$args = array();
 
-		// Just pass these
-		$pass_args = array( 'orderby', 'search', 'number', 'offset' );
-
-		foreach ($pass_args as $arg) {
-			if ( isset( $atts[$arg] ) )
-				$args[$arg] = $atts[$arg];
-		}
-
 		if ( isset( $atts['type'] ) ) {
 			$args['type'] = strtolower( $atts['type'] );
 		}
