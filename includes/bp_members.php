@@ -62,9 +62,10 @@ class CCS_BP_Member {
 			$args['meta_value'] = $atts['value'];
 		}
 
-		if ( isset( $atts['profile_fields'] ) ) {
+		if ( isset( $atts['profile_fields'] ) && isset( $atts['profile_values'] ) ) {
 			$field_names = explode( ',', $atts['profile_fields'] );
-			$user_ids = $this->get_users_by_xprofile_data( $field_names );
+			$field_values = explode( ',', $atts['profile_values'] );
+			$user_ids = $this->get_users_by_xprofile_data( $field_names, $field_values );
 			if ( isset( $args['include'] ) ) {
 				$user_ids = array_intersect( $user_ids, $args['include'] );
 			}
@@ -176,15 +177,17 @@ class CCS_BP_Member {
 	 * Get users by xprofile data.
 	 *
 	 *=======================================================================*/
-	public function get_users_by_xprofile_data( $xprofile_fields ) {
+	public function get_users_by_xprofile_data( $xprofile_fields, $xprofile_values ) {
 
 		global $wpdb;
 
-		if ( ! $xprofile_fields ) {
+		if ( ! $xprofile_fields || ! $xprofile_values ) {
 			return false;
 		}
 
-		foreach ( $xprofile_fields as $key => $value ) {
+		$fields = array_combine( $xprofile_fields, $xprofile_values );
+
+		foreach ( $fields as $key => $value ) {
 			if ( $value ) {
 				$key = xprofile_get_field_id_from_name( $key );
 				$field_ids[] = "'" . esc_sql( $key ) . "'";
