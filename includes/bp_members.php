@@ -51,20 +51,15 @@ class CCS_BP_Member {
 				$args[$arg] = $atts[$arg];
 		}
 
-		if (isset($atts['role'])) {
-			if ($atts['role']=='admin') $atts['role'] = 'Administrator';
-			$args['role'] = ucwords($atts['role']); // Capitalize word
-		}
-
-		if (isset($atts['order']))
-			$args['order'] = strtoupper($atts['order']);
+		if (isset($atts['type']))
+			$args['type'] = strtolower($atts['type']);
 		if (isset($atts['include']))
 			$args['include'] = CCS_Loop::explode_list($atts['include']);
 		if (isset($atts['exclude']))
 			$args['exclude'] = CCS_Loop::explode_list($atts['exclude']);
 
-		if (isset($atts['search_columns']))
-			$args['search_columns'] = CCS_Loop::explode_list($atts['search_columns']);
+		if (isset($atts['search_terms']))
+			$args['search_terms'] = esc_html( $atts['search_terms'] );
 
 		if (isset($atts['field']) && isset($atts['value'])) {
 
