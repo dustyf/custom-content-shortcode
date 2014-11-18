@@ -63,7 +63,12 @@ class CCS_BP_Member {
 		}
 
 		if ( isset( $atts['profile_fields'] ) ) {
-
+			$field_names = explode( ',', $atts['profile_fields'] );
+			$user_ids = $this->get_users_by_xprofile_data( $field_names );
+			if ( isset( $args['include'] ) ) {
+				$user_ids = array_intersect( $user_ids, $args['include'] );
+			}
+			$args['include'] = $user_ids;
 		}
 
 		$users = bp_core_get_users( $args );
@@ -192,6 +197,7 @@ class CCS_BP_Member {
 
 		// Get user IDs based on an xprofile field
 		$ids = $wpdb->get_col( "SELECT user_id FROM {$wpdb->prefix}bp_xprofile_data WHERE field_id in ({$field_ids}) AND value in ({$values})" );
+
 		return array_unique( $ids );
 
 	}
