@@ -203,18 +203,7 @@ class CCS_BP_Member {
 				return get_user_meta( $current_user->ID, $field, true );
 				break;
 		}
-
-		/*
-				if ( is_array( $atts ) ) $atts = array_flip( $atts );
-				if ( isset( $atts['name'] ) )
-				if ( isset( $atts['id'] ) ) return $current_user->ID;
-				if ( isset( $atts['email'] ) ) return $current_user->user_email;
-				if ( isset( $atts['fullname'] ) ) return $current_user->display_name;
-				if ( isset( $atts['avatar'] ) ) return get_avatar( $current_user->ID );
-				if ( isset( $atts['role'] ) ) return rtrim(implode(',',$current_user->roles),',');
-				// Or else just get the user field by name
-				return get_user_meta( $current_user->ID, $field, true );
-		*/
+		
 	}
 
 	public static function get_user_field( $field ) {
