@@ -63,9 +63,6 @@ class CCS_BP_Member {
 		if (isset($atts['exclude']))
 			$args['exclude'] = CCS_Loop::explode_list($atts['exclude']);
 
-		if (isset($atts['blog_id']))
-			$args['blog_id'] = intval($atts['blog_id']);
-
 		if (isset($atts['search_columns']))
 			$args['search_columns'] = CCS_Loop::explode_list($atts['search_columns']);
 
