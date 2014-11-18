@@ -48,6 +48,7 @@ class CCS_Plugin {
 			self::$settings['load_bootstrap_module'] = 'on';
 			self::$settings['load_file_loader'] = 'on';
 			self::$settings['load_gallery_field'] = 'on';
+			self::$settings['load_buddypress_members'] = 'on';
 
 			self::$settings['load_mobile_detect'] = 'off';
 
@@ -111,14 +112,14 @@ class CCS_Plugin {
 
 			// Option name => module name
 
-			'load_gallery_field'	=> 'gallery',		// Gallery field
-			'load_acf_module'		=> 'acf',			// Advanced Custom Fields support
-			'load_file_loader'		=> 'load',			// Load HTML, CSS, JS fields
-			'load_mobile_detect'	=> 'mobile',		// Mobile detect shortcodes
-			'load_bootstrap_module'	=> 'bootstrap',		// Bootstrap support
-			'shortcode_unautop'		=> 'unautop',		// Shortcode unautop
-			'raw_shortcode'			=> 'raw',			// [raw]
-			'buddypress_members'    => 'bp_members',    // BuddyPress Members
+			'load_gallery_field'	     => 'gallery',		// Gallery field
+			'load_acf_module'		     => 'acf',			// Advanced Custom Fields support
+			'load_file_loader'		     => 'load',			// Load HTML, CSS, JS fields
+			'load_mobile_detect'	     => 'mobile',		// Mobile detect shortcodes
+			'load_bootstrap_module'	     => 'bootstrap',	// Bootstrap support
+			'shortcode_unautop'		     => 'unautop',		// Shortcode unautop
+			'raw_shortcode'			     => 'raw',			// [raw]
+			'load_buddypress_members'    => 'bp_members',   // BuddyPress Members
 		);
 
 		foreach ($optional_modules as $option => $module) {

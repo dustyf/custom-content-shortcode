@@ -96,6 +96,9 @@ class CCS_Docs {
 		$load_gallery_field = isset( $settings['load_gallery_field'] ) ?
 			esc_attr( $settings['load_gallery_field'] ) : 'off';
 
+		$load_buddypress_members = isset( $settings['load_buddypress_members'] ) ?
+			esc_attr( $settings['load_buddypress_members'] ) : 'off';
+
 		$load_mobile_detect = isset( $settings['load_mobile_detect'] ) ?
 			esc_attr( $settings['load_mobile_detect'] ) : 'off';
 
@@ -145,6 +148,14 @@ class CCS_Docs {
 					<?php checked( $load_bootstrap_module, 'on' ); ?>
 				/>
 				&nbsp;&nbsp;<a href="options-general.php?page=ccs_reference&tab=other#bootstrap-navbar"><b>Bootstrap</b></a> shortcodes
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="checkbox" value="on" name="ccs_content_settings[load_buddypress_members]"
+					<?php checked( $load_buddypress_members, 'on' ); ?>
+					/>
+				&nbsp;&nbsp;<a href="options-general.php?page=ccs_reference&tab=other#bp-members"><b>BuddyPress Members</b></a> shortcodes
 			</td>
 		</tr>
 
