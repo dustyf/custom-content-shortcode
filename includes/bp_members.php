@@ -14,16 +14,12 @@ class CCS_BP_Member {
 
 	function __construct() {
 
-		add_shortcode('bp_members', array($this, 'users_shortcode'));
-		add_shortcode('bp_member', array($this, 'user_shortcode'));
+		add_shortcode('bp_members', array($this, 'members_shortcode'));
+		add_shortcode('bp_member', array($this, 'member_shortcode'));
 
 		self::$state['is_users_loop'] = false;
 
-		add_shortcode('is', array($this, 'is_shortcode'));
-		add_shortcode('isnt', array($this, 'is_shortcode'));
 		add_shortcode('blog', array($this, 'blog_shortcode'));
-		add_shortcode('list_shortcodes', array($this, 'list_shortcodes'));
-		add_shortcode('search_form', array($this, 'search_form_shortcode'));
 	}
 
 
@@ -33,7 +29,7 @@ class CCS_BP_Member {
 	 *
 	 *=======================================================================*/
 
-	function users_shortcode( $atts, $content ) {
+	function members_shortcode( $atts, $content ) {
 
 		self::$state['is_users_loop'] = true;
 
@@ -139,7 +135,7 @@ class CCS_BP_Member {
 	 *
 	 *=======================================================================*/
 
-	public static function user_shortcode( $atts ) {
+	public static function member_shortcode( $atts ) {
 
 		if ( self::$state['is_users_loop'] ) {
 
@@ -153,16 +149,20 @@ class CCS_BP_Member {
 		}
 
 		extract(shortcode_atts(array(
-			'field' => '',
-			'meta' => '', // Alias
-			'size' => ''
+			'field'            => '',
+			'meta'             => '', // Alias
+			'size'             => '',
+			'bp_profile_field' => '',
 		), $atts));
 
 		if(empty($current_user)) return; // no current user
 
+		// Get BuddyPress xprofile data
+		if ( ! empty( $bp_profile_field ) ) {
+			return xprofile_get_field_data( $bp_profile_field, $current_user->ID );
+		}
 
 		// Get field specified
-
 		if( !empty($meta) ) $field=$meta;
 
 		if ( empty($field) ) {
@@ -203,7 +203,7 @@ class CCS_BP_Member {
 				return get_user_meta( $current_user->ID, $field, true );
 				break;
 		}
-		
+
 	}
 
 	public static function get_user_field( $field ) {
