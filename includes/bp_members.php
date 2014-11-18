@@ -245,52 +245,5 @@ class CCS_BP_Member {
 
 		return $out;
 	}
-	
-}
 
-
-if ( ! function_exists( 'blog_exists' ) ) {
-
-	/**
-	 * Checks if a blog exists and is not marked as deleted.
-	 *
-	 * @link   http://wordpress.stackexchange.com/q/138300/73
-	 * @param  int $blog_id
-	 * @param  int $site_id
-	 * @return bool
-	 */
-	function blog_exists( $blog_id, $site_id = 0 ) {
-
-		global $wpdb;
-		static $cache = array ();
-
-		$site_id = (int) $site_id;
-
-		if (!function_exists('get_current_site'))
-			return false;
-
-		if ( 0 === $site_id ) {
-			$current_site = get_current_site();
-			$site_id = $current_site->id;
-		}
-
-		if ( empty ( $cache ) or empty ( $cache[ $site_id ] ) ) {
-
-			if ( wp_is_large_network() ) // we do not test large sites.
-				return TRUE;
-
-			$query = "SELECT `blog_id` FROM $wpdb->blogs
-                    WHERE site_id = $site_id AND deleted = 0";
-
-			$result = $wpdb->get_col( $query );
-
-			// Make sure the array is always filled with something.
-			if ( empty ( $result ) )
-				$cache[ $site_id ] = array ( 'do not check again' );
-			else
-				$cache[ $site_id ] = $result;
-		}
-
-		return in_array( $blog_id, $cache[ $site_id ] );
-	}
 }
