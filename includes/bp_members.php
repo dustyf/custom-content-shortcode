@@ -207,29 +207,4 @@ class CCS_BP_Member {
 		return self::user_shortcode( array( 'field' =>  $field ) );
 	}
 
-
-	/*========================================================================
-	 *
-	 * [blog]
-	 *
-	 *=======================================================================*/
-
-	function blog_shortcode( $atts, $content ){
-
-		extract(shortcode_atts(array(
-			'id' => '',
-		), $atts));
-
-		$out = $content;
-
-		if ( empty($id) || !blog_exists($id))
-			return;
-
-		switch_to_blog($id);
-		$out = do_shortcode($out);
-		restore_current_blog();
-
-		return $out;
-	}
-
 }
