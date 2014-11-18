@@ -118,6 +118,7 @@ class CCS_Plugin {
 			'load_bootstrap_module'	=> 'bootstrap',		// Bootstrap support
 			'shortcode_unautop'		=> 'unautop',		// Shortcode unautop
 			'raw_shortcode'			=> 'raw',			// [raw]
+			'buddypress_members'    => 'bp_members',    // BuddyPress Members
 		);
 
 		foreach ($optional_modules as $option => $module) {
