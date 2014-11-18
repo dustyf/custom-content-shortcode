@@ -62,42 +62,8 @@ class CCS_BP_Member {
 			$args['search_terms'] = esc_html( $atts['search_terms'] );
 
 		if (isset($atts['field']) && isset($atts['value'])) {
-
-			$compare = isset($atts['compare']) ? strtoupper($atts['compare']) : '=';
-
-			switch ($compare) {
-				case 'EQUAL': $compare = "="; break;
-				case 'NOT':
-				case 'NOT EQUAL': $compare = "!="; break;
-				case 'MORE': $compare = '>'; break;
-				case 'LESS': $compare = '<'; break;
-			}
-
-			$multiple = array('IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN');
-
-			if ( in_array($compare,$multiple) ) {
-				$value = CCS_Loop::explode_list($atts['value']);
-			} else {
-				$value = $atts['value'];
-			}
-
-			$args['meta_query'][] = array(
-				'key' => $atts['field'],
-				'value' => $atts['value'],
-				'compare' => $compare,
-			);
-
-			// Additional query
-			if (isset($atts['relation']) && isset($atts['field']) && isset($atts['value'])) {
-
-				$args['meta_query']['relation'] = strtoupper($atts['relation']);
-
-				$args['meta_query'][] = array(
-					'key' => $atts['field_2'],
-					'value' => $atts['value_2'],
-					'compare' => isset($atts['compare_2']) ? strtoupper($atts['compare_2']) : '=',
-				);
-			}
+			$args['meta_key'] = $atts['field'];
+			$args['meta_value'] = $atts['value'];
 		}
 
 		$users = bp_core_get_users( $args );
