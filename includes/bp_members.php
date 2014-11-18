@@ -220,7 +220,7 @@ class CCS_BP_Member {
 	public static function get_user_field( $field ) {
 		return self::user_shortcode( array( 'field' =>  $field ) );
 	}
-	
+
 
 	/*========================================================================
 	 *
@@ -245,47 +245,7 @@ class CCS_BP_Member {
 
 		return $out;
 	}
-
-
-	/*========================================================================
-	 *
-	 * [list_shortcodes]
-	 *
-	 *=======================================================================*/
-
-	function list_shortcodes( ) {
-		global $shortcode_tags;
-		ksort($shortcode_tags); // Alphabetical sort
-
-		$out = '';
-
-		foreach ( $shortcode_tags as $key => $value ) {
-
-			if(is_array($value)) $value='Class object';
-
-			$out .= $key . ' = ' . $value . '<br>';
-
-		}
-		return $out;
-	}
-
-
-	/*========================================================================
-	 *
-	 * [search_form]
-	 *
-	 *=======================================================================*/
-
-	function search_form_shortcode() {
-
-		ob_start();
-		get_search_form(true);
-		$out = ob_get_contents();
-		ob_end_clean();
-
-		return $out;
-	}
-
+	
 }
 
 
