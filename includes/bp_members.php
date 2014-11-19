@@ -46,9 +46,11 @@ class CCS_BP_Member {
 		if ( isset( $atts['type'] ) ) {
 			$args['type'] = strtolower( $atts['type'] );
 		}
+
 		if ( isset( $atts['include'] ) ) {
 			$args['include'] = CCS_Loop::explode_list( $atts['include'] );
 		}
+
 		if ( isset( $atts['exclude'] ) ) {
 			$args['exclude'] = CCS_Loop::explode_list( $atts['exclude'] );
 		}
@@ -62,6 +64,11 @@ class CCS_BP_Member {
 			$args['meta_value'] = $atts['value'];
 		}
 
+		if ( isset( $atts['group'] ) ) {
+			$group_name = $atts['group'];
+			$args['group_id'] = $this->get_group_id_by_name( $group_name );
+		}
+
 		if ( isset( $atts['profile_fields'] ) && isset( $atts['profile_values'] ) ) {
 			$field_names = explode( ',', $atts['profile_fields'] );
 			$field_values = explode( ',', $atts['profile_values'] );
@@ -72,7 +79,12 @@ class CCS_BP_Member {
 			$args['include'] = $user_ids;
 		}
 
-		$users = bp_core_get_users( $args );
+		if ( ! isset( $args['group_id'] ) ) {
+			$users = bp_core_get_users( $args );
+		} else {
+			$member_query = new BP_Group_Member_Query( $args );
+			$users['users'] = $member_query->results;
+		}
 
 
 		/*========================================================================
@@ -202,6 +214,20 @@ class CCS_BP_Member {
 		$ids = $wpdb->get_col( "SELECT user_id FROM {$wpdb->prefix}bp_xprofile_data WHERE field_id in ({$field_ids}) AND value in ({$values})" );
 
 		return array_unique( $ids );
+
+	}
+
+	public function get_group_id_by_name( $group_name ) {
+
+		global $wpdb, $bp;
+
+		$table_name = $bp->groups->table_name;
+
+		if ( empty( $group_name ) ) {
+			return false;
+		}
+
+		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table_name} WHERE name = %s", $group_name ) );
 
 	}
 
