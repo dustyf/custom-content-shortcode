@@ -48,7 +48,7 @@ class CCS_Plugin {
 			self::$settings['load_bootstrap_module'] = 'on';
 			self::$settings['load_file_loader'] = 'on';
 			self::$settings['load_gallery_field'] = 'on';
-			self::$settings['load_buddypress_members'] = 'on';
+			self::$settings['load_buddypress_members'] = 'off';
 
 			self::$settings['load_mobile_detect'] = 'off';
 
